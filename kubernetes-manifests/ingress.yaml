@@ -1,0 +1,26 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: portfolio-sabrine-ingress
+  namespace: examen-26
+  annotations:
+    cert-manager.io/cluster-issuer: "letsencrypt-prod"
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: YOUR_DOMAIN.duckdns.org
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: portfolio-sabrine-service
+            port:
+              number: 80
+  tls:
+  - hosts:
+    - YOUR_DOMAIN.duckdns.org
+    secretName: portfolio-tls
+
